@@ -989,92 +989,180 @@ async def next_step_test(request: dict):
                     current_code_type = "python"
                     user_code_files[session_id]["python"] = step_request.user_code
         
-        # Create a step response based on the current step number, not hardcoded
+        # Create project-specific sequential steps
         
-        # Web Development Project Flow (HTML/CSS/JS)
-        html_css_js_steps = {
+        # Web Development Project Flow (HTML/CSS/JS) - Portfolio Website
+        html_css_js_portfolio_steps = {
             1: {
-                "title": "Setting up the HTML structure",
-                "description": "In this first step, we'll create the basic HTML skeleton for our portfolio website with proper document structure, header, navigation, main content areas, and footer.",
+                "title": "HTML Structure",
+                "description": "Let's create the basic HTML structure for our portfolio website. We'll set up the document with proper HTML5 tags, create a header with navigation, and add sections for about, projects, and contact information.",
                 "language": "html",
                 "code": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n  <meta charset=\"UTF-8\">\n  <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n  <title>My Portfolio</title>\n</head>\n<body>\n  <header>\n    <h1>My Portfolio</h1>\n    <nav>\n      <ul>\n        <li><a href=\"#about\">About</a></li>\n        <li><a href=\"#projects\">Projects</a></li>\n        <li><a href=\"#contact\">Contact</a></li>\n      </ul>\n    </nav>\n  </header>\n  \n  <main>\n    <section id=\"about\">\n      <h2>About Me</h2>\n      <p>Welcome to my portfolio! I am a web developer passionate about creating beautiful and functional websites.</p>\n    </section>\n    \n    <section id=\"projects\">\n      <h2>My Projects</h2>\n      <div class=\"project\">\n        <h3>Project 1</h3>\n        <p>Description of project 1</p>\n      </div>\n      <div class=\"project\">\n        <h3>Project 2</h3>\n        <p>Description of project 2</p>\n      </div>\n    </section>\n    \n    <section id=\"contact\">\n      <h2>Contact Me</h2>\n      <form>\n        <label for=\"name\">Name:</label>\n        <input type=\"text\" id=\"name\" name=\"name\"><br>\n        \n        <label for=\"email\">Email:</label>\n        <input type=\"email\" id=\"email\" name=\"email\"><br>\n        \n        <label for=\"message\">Message:</label>\n        <textarea id=\"message\" name=\"message\"></textarea><br>\n        \n        <button type=\"submit\">Submit</button>\n      </form>\n    </section>\n  </main>\n  \n  <footer>\n    <p>&copy; 2023 My Portfolio. All rights reserved.</p>\n  </footer>\n</body>\n</html>",
                 "expected_outcome": "A basic HTML structure for our portfolio website with header, navigation, main sections, and footer."
             },
             2: {
-                "title": "Adding CSS Styling",
-                "description": "In this step, we'll create CSS styles for our portfolio website to improve its appearance. We'll focus on general body styles, header styling, navigation, main content sections, and footer design.",
+                "title": "Basic CSS Styling",
+                "description": "Now let's add basic CSS styling to our portfolio. We'll create a stylesheet to set fonts, colors, and layout for the main elements like header, navigation, and sections.",
                 "language": "css",
                 "code": "/* General styles */\nbody {\n  font-family: Arial, sans-serif;\n  line-height: 1.6;\n  margin: 0;\n  padding: 0;\n  color: #333;\n}\n\nheader {\n  background-color: #4a89dc;\n  color: white;\n  padding: 1rem;\n  text-align: center;\n}\n\nnav ul {\n  display: flex;\n  justify-content: center;\n  list-style: none;\n  padding: 0;\n}\n\nnav ul li {\n  margin: 0 15px;\n}\n\nnav a {\n  color: white;\n  text-decoration: none;\n}\n\nmain {\n  max-width: 1200px;\n  margin: 0 auto;\n  padding: 20px;\n}\n\nsection {\n  margin-bottom: 40px;\n}\n\nfooter {\n  background-color: #333;\n  color: white;\n  text-align: center;\n  padding: 1rem;\n  margin-top: 2rem;\n}",
                 "expected_outcome": "A styled portfolio website with improved visual appearance. The header will have a blue background, navigation will be centered, and the content will be properly spaced."
             },
             3: {
-                "title": "Styling Form Elements",
-                "description": "Now we'll focus on making the contact form look better with proper styling for inputs, textareas, and buttons. We'll add proper spacing, borders, and hover effects.",
+                "title": "Contact Form Styling",
+                "description": "Let's enhance our portfolio by styling the contact form. We'll add proper spacing, borders, and styling to input elements and button to make the form more attractive and user-friendly.",
                 "language": "css",
                 "code": "",
                 "expected_outcome": "A professional-looking contact form with styled inputs, proper spacing, and an attractive submit button."
             },
             4: {
-                "title": "Adding JavaScript Interactivity",
-                "description": "In this step, we'll add JavaScript to make our website interactive. We'll implement form validation, a simple image gallery for projects, and smooth scrolling for navigation links.",
-                "language": "javascript",
-                "code": "",
-                "expected_outcome": "A more interactive website with functional form validation and improved navigation experience."
-            },
-            5: {
-                "title": "Responsive Design",
-                "description": "Finally, we'll make our portfolio website responsive using media queries. We'll add breakpoints for different screen sizes, adjust the layout for mobile devices, and create a responsive navigation menu.",
+                "title": "Project Section Enhancements",
+                "description": "In this step, we'll improve the Projects section by adding proper grid layout, cards for each project, and styling that showcases your work effectively.",
                 "language": "css",
                 "code": "",
-                "expected_outcome": "A fully responsive portfolio website that looks and functions well on desktop, tablet, and mobile devices."
-            }
-        }
-        
-        # Python+Streamlit Project Flow
-        python_streamlit_steps = {
-            1: {
-                "title": "Setting up Basic Streamlit App",
-                "description": "In this first step, we'll create the foundation of our Streamlit data visualization dashboard with necessary libraries, basic app structure, and a simple data display.",
-                "language": "python",
-                "code": "import streamlit as st\nimport pandas as pd\nimport numpy as np\n\n# Set up the app title and description\nst.title('Data Visualization Dashboard')\nst.write('Welcome to my data visualization dashboard!')\n\n# Create some demo data\ndata = pd.DataFrame({\n    'Date': pd.date_range(start='2023-01-01', periods=10),\n    'Values': np.random.randn(10).cumsum()\n})\n\n# Display the data\nst.subheader('Sample Data')\nst.dataframe(data)\n\n# Create a simple chart\nst.subheader('Line Chart')\nst.line_chart(data.set_index('Date'))",
-                "expected_outcome": "A basic Streamlit app that displays a sample dataset and a line chart."
-            },
-            2: {
-                "title": "Adding Interactive Controls",
-                "description": "In this step, we'll enhance our dashboard with interactive controls like a sidebar with user inputs, sliders for selecting data points, and dropdowns for chart selection.",
-                "language": "python",
-                "code": "",
-                "expected_outcome": "An interactive dashboard where users can control the visualization parameters through widgets."
-            },
-            3: {
-                "title": "Implementing Multiple Visualizations",
-                "description": "Now we'll expand our dashboard with multiple visualization options including bar charts, scatter plots, and area charts with conditional rendering based on user selection.",
-                "language": "python",
-                "code": "",
-                "expected_outcome": "A versatile dashboard with multiple visualization types that users can switch between."
-            },
-            4: {
-                "title": "Adding Data Filters",
-                "description": "In this step, we'll implement data filtering capabilities with date range selectors, category filters, and basic statistical summaries.",
-                "language": "python",
-                "code": "",
-                "expected_outcome": "A more powerful dashboard with data filtering capabilities and statistical insights."
+                "expected_outcome": "An attractive projects section with a grid layout showcasing each project in a card format."
             },
             5: {
-                "title": "Polishing the UI",
-                "description": "Finally, we'll enhance the dashboard's appearance and user experience with custom styling, better organization, help tooltips, and download options.",
-                "language": "python",
+                "title": "Form Validation with JavaScript",
+                "description": "Now we'll add form validation to our contact form using JavaScript. We'll ensure that all fields are properly filled out before submission and provide feedback to the user about any errors.",
+                "language": "javascript",
                 "code": "",
-                "expected_outcome": "A professional-looking, user-friendly dashboard with an intuitive interface and polished appearance."
+                "expected_outcome": "A contact form with client-side validation that checks all fields before submission and provides user feedback."
             }
         }
         
-        # Pick the right step based on project type
+        # Web Development Project Flow (HTML/CSS/JS) - Todo App
+        html_css_js_todo_steps = {
+            1: {
+                "title": "HTML Structure for Todo App",
+                "description": "Let's create the basic HTML structure for our Todo application. We'll set up the document with a form to add new tasks and a list to display existing tasks.",
+                "language": "html",
+                "code": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n  <meta charset=\"UTF-8\">\n  <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n  <title>Todo App</title>\n</head>\n<body>\n  <div class=\"container\">\n    <h1>My Todo List</h1>\n    \n    <form id=\"todo-form\">\n      <input type=\"text\" id=\"todo-input\" placeholder=\"Add a new task...\" required>\n      <button type=\"submit\">Add Task</button>\n    </form>\n    \n    <ul id=\"todo-list\">\n      <!-- Tasks will be added here dynamically -->\n      <li class=\"todo-item\">\n        <span class=\"todo-text\">Example task 1</span>\n        <button class=\"delete-btn\">Delete</button>\n      </li>\n      <li class=\"todo-item\">\n        <span class=\"todo-text\">Example task 2</span>\n        <button class=\"delete-btn\">Delete</button>\n      </li>\n    </ul>\n  </div>\n</body>\n</html>",
+                "expected_outcome": "A basic HTML structure for our Todo app with input form and task list."
+            },
+            2: {
+                "title": "CSS Styling for Todo App",
+                "description": "Now let's style our Todo app to make it more visually appealing. We'll add colors, spacing, and effects to make the app look professional.",
+                "language": "css",
+                "code": "* {\n  margin: 0;\n  padding: 0;\n  box-sizing: border-box;\n}\n\nbody {\n  font-family: 'Arial', sans-serif;\n  background-color: #f5f5f5;\n  color: #333;\n  line-height: 1.6;\n}\n\n.container {\n  max-width: 500px;\n  margin: 50px auto;\n  padding: 20px;\n  background-color: white;\n  border-radius: 5px;\n  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);\n}\n\nh1 {\n  text-align: center;\n  margin-bottom: 20px;\n  color: #2c3e50;\n}\n\n#todo-form {\n  display: flex;\n  margin-bottom: 20px;\n}\n\n#todo-input {\n  flex: 1;\n  padding: 10px;\n  border: 1px solid #ddd;\n  border-radius: 4px 0 0 4px;\n  font-size: 16px;\n}\n\n#todo-form button {\n  padding: 10px 15px;\n  background-color: #3498db;\n  color: white;\n  border: none;\n  border-radius: 0 4px 4px 0;\n  cursor: pointer;\n  font-size: 16px;\n}\n\n#todo-form button:hover {\n  background-color: #2980b9;\n}\n\n#todo-list {\n  list-style: none;\n}\n\n.todo-item {\n  display: flex;\n  justify-content: space-between;\n  align-items: center;\n  padding: 10px;\n  border-bottom: 1px solid #eee;\n}\n\n.todo-text {\n  flex: 1;\n}\n\n.delete-btn {\n  padding: 5px 10px;\n  background-color: #e74c3c;\n  color: white;\n  border: none;\n  border-radius: 4px;\n  cursor: pointer;\n}\n\n.delete-btn:hover {\n  background-color: #c0392b;\n}",
+                "expected_outcome": "A styled Todo app with proper colors, spacing, and visual hierarchy."
+            },
+            3: {
+                "title": "Add Task Functionality",
+                "description": "In this step, we'll implement the JavaScript functionality to add new tasks to our Todo list. We'll create event listeners for the form submission and dynamically add new tasks to the list.",
+                "language": "javascript",
+                "code": "",
+                "expected_outcome": "A functional Todo app where users can add new tasks that get displayed in the list."
+            },
+            4: {
+                "title": "Delete and Complete Tasks",
+                "description": "Now let's add functionality to delete tasks and mark them as completed. We'll implement event delegation for the delete buttons and add a way to toggle task completion status.",
+                "language": "javascript",
+                "code": "",
+                "expected_outcome": "A Todo app where users can delete tasks and mark them as completed (with strikethrough styling)."
+            },
+            5: {
+                "title": "Local Storage Integration",
+                "description": "In this final step, we'll make our Todo app persistent by saving tasks to localStorage. This ensures that tasks remain even when the user refreshes the page or comes back later.",
+                "language": "javascript",
+                "code": "",
+                "expected_outcome": "A complete Todo app that persists data between page refreshes using localStorage."
+            }
+        }
+        
+        # Python+Streamlit Data Dashboard Project
+        python_streamlit_dashboard_steps = {
+            1: {
+                "title": "Basic Streamlit App Setup",
+                "description": "Let's set up a basic Streamlit app for our data dashboard. We'll import the necessary libraries, create a title and description, and display some sample data.",
+                "language": "python",
+                "code": "import streamlit as st\nimport pandas as pd\nimport numpy as np\nimport matplotlib.pyplot as plt\n\n# Set up the app title and description\nst.title('Data Visualization Dashboard')\nst.write('Welcome to my interactive data dashboard!')\n\n# Create some sample data\ndata = pd.DataFrame({\n    'Date': pd.date_range(start='2023-01-01', periods=10),\n    'Sales': np.random.randint(100, 500, size=10),\n    'Customers': np.random.randint(10, 50, size=10),\n    'Category': np.random.choice(['Electronics', 'Clothing', 'Food', 'Books'], 10)\n})\n\n# Display the data\nst.subheader('Sample Data')\nst.dataframe(data)\n\n# Create a simple chart\nst.subheader('Sales Over Time')\nst.line_chart(data.set_index('Date')['Sales'])",
+                "expected_outcome": "A basic Streamlit app that displays a sample dataset and a line chart of sales over time."
+            },
+            2: {
+                "title": "Adding Sidebar Controls",
+                "description": "Now let's add interactive controls to our dashboard using Streamlit's sidebar functionality. We'll create filters for date range and category selection.",
+                "language": "python",
+                "code": "",
+                "expected_outcome": "A dashboard with a sidebar containing filters that let users control what data is displayed."
+            },
+            3: {
+                "title": "Multiple Chart Types",
+                "description": "In this step, we'll enhance our dashboard by adding different types of visualizations. We'll implement bar charts, scatter plots, and pie charts to represent different aspects of our data.",
+                "language": "python",
+                "code": "",
+                "expected_outcome": "A dashboard with multiple visualization types showing different perspectives on the data."
+            },
+            4: {
+                "title": "Data Analysis Features",
+                "description": "Let's add some data analysis capabilities to our dashboard. We'll calculate and display summary statistics, trends, and insights from the data.",
+                "language": "python",
+                "code": "",
+                "expected_outcome": "A dashboard that not only visualizes data but also provides analytical insights."
+            },
+            5: {
+                "title": "File Upload and Custom Data",
+                "description": "In our final step, we'll allow users to upload their own CSV files to analyze. We'll add file upload functionality and adapt our visualizations to work with custom data.",
+                "language": "python",
+                "code": "",
+                "expected_outcome": "A complete dashboard that can analyze and visualize user-uploaded data files."
+            }
+        }
+        
+        # Python+Streamlit Machine Learning App
+        python_streamlit_ml_steps = {
+            1: {
+                "title": "Basic ML App Setup",
+                "description": "Let's create a basic Streamlit app for our machine learning project. We'll set up the structure and import necessary libraries for a simple predictive model.",
+                "language": "python",
+                "code": "import streamlit as st\nimport pandas as pd\nimport numpy as np\nfrom sklearn.model_selection import train_test_split\nfrom sklearn.ensemble import RandomForestClassifier\nfrom sklearn.metrics import accuracy_score\n\n# Set up the app title and description\nst.title('Machine Learning Predictor')\nst.write('This app demonstrates a simple machine learning model using the Iris dataset.')\n\n# Load the Iris dataset\n@st.cache_data\ndef load_data():\n    from sklearn.datasets import load_iris\n    iris = load_iris()\n    df = pd.DataFrame(iris.data, columns=iris.feature_names)\n    df['target'] = iris.target\n    df['target_names'] = df['target'].apply(lambda x: iris.target_names[x])\n    return df\n\ndf = load_data()\n\n# Display the dataset\nst.subheader('Iris Dataset')\nst.dataframe(df.head())\n\n# Display basic statistics\nst.subheader('Dataset Statistics')\nst.write(df.describe())",
+                "expected_outcome": "A basic Streamlit app that loads and displays the Iris dataset, ready for machine learning modeling."
+            },
+            2: {
+                "title": "Training a Basic Model",
+                "description": "In this step, we'll implement a simple machine learning model using scikit-learn. We'll train a Random Forest classifier on the Iris dataset and display the model's accuracy.",
+                "language": "python",
+                "code": "",
+                "expected_outcome": "A Streamlit app that trains a machine learning model and displays its accuracy."
+            },
+            3: {
+                "title": "Interactive Predictions",
+                "description": "Now let's add interactive prediction capabilities. We'll create input fields for users to enter feature values and see real-time predictions from our model.",
+                "language": "python",
+                "code": "",
+                "expected_outcome": "An app where users can enter values and get predictions from the trained model."
+            },
+            4: {
+                "title": "Model Parameter Tuning",
+                "description": "In this step, we'll add controls for users to adjust the machine learning model's parameters. We'll let them experiment with hyperparameters and see how they affect model performance.",
+                "language": "python",
+                "code": "",
+                "expected_outcome": "An app that allows users to tune model parameters and observe changes in performance."
+            },
+            5: {
+                "title": "Visualizing Model Results",
+                "description": "Finally, we'll add visualizations to help users understand the model's performance. We'll create confusion matrices, feature importance plots, and prediction probability charts.",
+                "language": "python",
+                "code": "",
+                "expected_outcome": "A complete machine learning app with visualizations that help interpret the model's predictions and performance."
+            }
+        }
+        
+        # Determine which project steps to use based on project idea keywords or default based on project type
+        project_idea = step_request.project_idea.lower() if step_request.project_idea else ""
+        
         if step_request.project_type == "html+css+js":
-            steps = html_css_js_steps
+            if "todo" in project_idea or "task" in project_idea or "list" in project_idea:
+                steps = html_css_js_todo_steps
+            else:
+                # Default to portfolio
+                steps = html_css_js_portfolio_steps
         else:  # python+streamlit
-            steps = python_streamlit_steps
-            
+            if "machine" in project_idea or "ml" in project_idea or "predict" in project_idea or "model" in project_idea:
+                steps = python_streamlit_ml_steps
+            else:
+                # Default to data dashboard
+                steps = python_streamlit_dashboard_steps
+        
         # Make sure we have this step
         if next_step not in steps:
             next_step = min(next_step, len(steps))  # Cap at max steps available
@@ -1084,14 +1172,14 @@ async def next_step_test(request: dict):
         # Add step number explicitly
         step_data["step_number"] = next_step
         
-        # Format title with step number
+        # Format title with correct step number
         step_data["title"] = f"Step {next_step}: {step_data['title']}"
         
         # Add appropriate feedback based on expertise level
         if step_request.expertise_level == "beginner":
-            feedback = "Here's the next step. I'll provide some starter code to help you get started."
+            feedback = "Here's the next step. I'll provide some guidance to help you get started."
         elif step_request.expertise_level == "intermediate":
-            feedback = "Good progress! For this step, try implementing the solution before looking at any code examples."
+            feedback = "Great job! For this step, try implementing the solution using the description before looking at any code examples."
             # Remove code for intermediate level if not first step
             if next_step > 1:
                 step_data["code"] = ""
@@ -1102,68 +1190,99 @@ async def next_step_test(request: dict):
             
         step_data["feedback"] = feedback
         
-        # Generate appropriate quiz questions for this step
+        # Generate appropriate quiz questions for this step based on the specific step content
         if step_request.project_type == "html+css+js":
             if step_data["language"] == "html":
                 quiz_questions = [
                     {
                         "question_id": "q1",
-                        "question_text": "What HTML element creates the main heading of a page?",
+                        "question_text": "What HTML tag is used for the main heading on a page?",
                         "options": ["<p>", "<h1>", "<header>", "<title>"],
                         "correct_answer": "<h1>"
                     },
                     {
                         "question_id": "q2",
-                        "question_text": "Which element should contain the main content of your web page?",
-                        "options": ["<body>", "<content>", "<main>", "<div>"],
-                        "correct_answer": "<main>"
+                        "question_text": "Which HTML element is used to create a list of items?",
+                        "options": ["<div>", "<list>", "<ul>", "<items>"],
+                        "correct_answer": "<ul>"
                     }
                 ]
             elif step_data["language"] == "css":
                 quiz_questions = [
                     {
                         "question_id": "q1",
-                        "question_text": "How do you center a block element horizontally in CSS?",
+                        "question_text": "How do you center an element horizontally in CSS?",
                         "options": ["align: center", "text-align: center", "margin: 0 auto", "position: center"],
                         "correct_answer": "margin: 0 auto"
                     },
                     {
                         "question_id": "q2",
-                        "question_text": "Which CSS property changes text color?",
-                        "options": ["text-color", "font-color", "color", "text-style"],
-                        "correct_answer": "color"
+                        "question_text": "Which property sets the space between elements?",
+                        "options": ["space", "margin", "padding", "gap"],
+                        "correct_answer": "margin"
                     }
                 ]
             else:  # javascript
                 quiz_questions = [
                     {
                         "question_id": "q1",
-                        "question_text": "How do you select an element by its ID in JavaScript?",
-                        "options": ["document.findElement()", "document.getElementById()", "document.querySelector()", "document.getElement()"],
-                        "correct_answer": "document.getElementById()"
+                        "question_text": "How do you prevent a form from submitting in JavaScript?",
+                        "options": ["stopSubmit()", "event.preventDefault()", "form.preventDefault()", "return false"],
+                        "correct_answer": "event.preventDefault()"
                     },
                     {
                         "question_id": "q2",
-                        "question_text": "How do you prevent a form from submitting in JavaScript?",
-                        "options": ["form.stopSubmit()", "event.preventDefault()", "form.preventDefault()", "return false"],
-                        "correct_answer": "event.preventDefault()"
+                        "question_text": "How do you add an element to the DOM in JavaScript?",
+                        "options": ["document.add()", "element.append()", "document.addElement()", "document.createElement()"],
+                        "correct_answer": "document.createElement()"
                     }
                 ]
         else:  # python+streamlit
-            quiz_questions = [
-                {
-                    "question_id": "q1",
-                    "question_text": f"What is the main focus of {step_data['title'].replace('Step ' + str(next_step) + ': ', '')}?",
-                    "options": ["Setting up basic page structure", "Creating interactive controls", "Implementing visualizations", "Data filtering"],
-                    "correct_answer": "Creating interactive controls" if "Interactive" in step_data["title"] else "Implementing visualizations" if "Visualization" in step_data["title"] else "Data filtering" if "Filter" in step_data["title"] else "Setting up basic page structure"
-                },
-                {
-                    "question_id": "q2", 
-                    "question_text": "What Streamlit function creates a line chart?",
-                    "options": ["st.line_chart()", "st.chart()", "st.plot()", "st.lineplot()"],
-                    "correct_answer": "st.line_chart()"
-                }
-            ]
+            if "basic" in step_data["title"].lower() or "setup" in step_data["title"].lower():
+                quiz_questions = [
+                    {
+                        "question_id": "q1",
+                        "question_text": "How do you display text in a Streamlit app?",
+                        "options": ["print()", "st.write()", "st.text()", "st.display()"],
+                        "correct_answer": "st.write()"
+                    },
+                    {
+                        "question_id": "q2", 
+                        "question_text": "What command creates a line chart in Streamlit?",
+                        "options": ["st.line_chart()", "st.chart()", "st.plot()", "st.lineplot()"],
+                        "correct_answer": "st.line_chart()"
+                    }
+                ]
+            elif "control" in step_data["title"].lower() or "sidebar" in step_data["title"].lower():
+                quiz_questions = [
+                    {
+                        "question_id": "q1",
+                        "question_text": "How do you add a slider to a Streamlit app?",
+                        "options": ["st.create_slider()", "st.slider()", "st.input_slider()", "st.range()"],
+                        "correct_answer": "st.slider()"
+                    },
+                    {
+                        "question_id": "q2",
+                        "question_text": "How do you add elements to the sidebar in Streamlit?",
+                        "options": ["sidebar.element()", "st.sidebar", "st.sidebar.element()", "st.element(sidebar=True)"],
+                        "correct_answer": "st.sidebar.element()"
+                    }
+                ]
+            else:
+                quiz_questions = [
+                    {
+                        "question_id": "q1",
+                        "question_text": "Which library is commonly used for creating charts in Python?",
+                        "options": ["chart", "pyplot", "matplotlib", "graphlib"],
+                        "correct_answer": "matplotlib"
+                    },
+                    {
+                        "question_id": "q2",
+                        "question_text": "What Pandas function loads data from a CSV file?",
+                        "options": ["pd.load_csv()", "pd.read_csv()", "pd.open_csv()", "pd.csv()"],
+                        "correct_answer": "pd.read_csv()"
+                    }
+                ]
             
         # Add quiz questions to step data
         step_data["quiz_questions"] = quiz_questions
